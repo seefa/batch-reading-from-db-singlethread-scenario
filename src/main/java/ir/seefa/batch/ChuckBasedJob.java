@@ -46,7 +46,7 @@ public class ChuckBasedJob {
 
     @Bean
     public Step chunkBasedReadingFlatFileStep() {
-        return this.stepBuilderFactory.get("chunkBasedReadingFromDBInSingleThreadScenarios")
+        return this.stepBuilderFactory.get("chunkBasedReadingFromDBInMultiThreadScenarios")
                 .<Customer, Customer>chunk(10)
                 .reader(itemReader())
                 .writer(items -> {
@@ -59,7 +59,7 @@ public class ChuckBasedJob {
 
     @Bean
     public Job chuckOrientedJob() {
-        return this.jobBuilderFactory.get("chunkOrientedFlatFileJob")
+        return this.jobBuilderFactory.get("chunkOrientedReadingDbInSingleThreadScenariosJob")
                 .start(chunkBasedReadingFlatFileStep())
                 .build();
 
